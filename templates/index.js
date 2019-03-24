@@ -11,7 +11,7 @@ var controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.25;
 controls.enableZoom = true;
-controls.enabled = false;
+//controls.enabled = false;
 
 var keyLight = new THREE.DirectionalLight(new THREE.Color("hsl(30, 100%, 75%)"), 1.0);
 keyLight.position.set(-100, 0, 100);
@@ -42,7 +42,7 @@ mtlLoader.load("./callisto.mtl", function(materials) {
         scene.add(object);
         object.scale.set(0.1, 0.1, 0.1);
         object.rotation.set(-Math.PI / 2, 0, 0);
-//        object.position.y -= 80;
+        moveToCenter();
       });
 });
 
@@ -69,28 +69,24 @@ var updateData = function() {
             document.getElementById("data-o-roll").innerHTML = data["o"]["roll"];
             document.getElementById("data-o-yaw").innerHTML = data["o"]["yaw"];
 
-            cad_obj.position.y = 0;
             cad_obj.rotation.set(data["o"]["pitch"] - Math.PI/2, data["o"]["yaw"], data["o"]["roll"]);
-            let temp_pitch = data["o"]["pitch"] - Math.PI/2;
-            let positionY = 0;
-            if(temp_pitch <= Math.PI/2)
-              positionY = temp_pitch*160/Math.PI;
-            else
-              positionY = -(temp_pitch-Math.PI)*160/Math.PI
-            let temp_yaw = data["o"]["yaw"];
-            let positionX = 0;
-            if(temp_yaw <= Math.PI/2)
-              positionX = temp_yaw*200/Math.PI;
-            else
-              positionX = -(temp_yaw-Math.PI)*200/Math.PI
-
-            cad_obj.position.y = positionY;
-            cad_obj.position.x = positionX
+            moveToCenter();
         })
         .catch(function() {
             console.log("Error occured with data request");
         });
 };
 
+function moveToCenter(){
+  var children = cad_obj.children,
+  completeBoundingBox = new THREE.Box3(); // create a new box which will contain the entire values
+  completeBoundingBox = completeBoundingBox.setFromObject(cad_obj);
+  var objectCenter = completeBoundingBox.center()
+
+  cad_obj.position.x -= objectCenter.x;
+  cad_obj.position.y -= objectCenter.y;
+  cad_obj.position.z -= objectCenter.z;
+}
+
 animate();
-setInterval(updateData, 10);
+setInterval(updateData, 5);

@@ -43,7 +43,6 @@ def orientation():
             sock.send(json.dumps(message).encode("utf-8"))
             confirmation = sock.recv(1024)
             now = time.time()
-            time.sleep(.1)
     except KeyboardInterrupt:
         print("Operation complete.")
 #        sense.clear()
