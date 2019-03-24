@@ -2,6 +2,10 @@
 
 A basic demonstration on how a device would read from an IMU (inertial measurement unit) and have that data displayed on a user interface.
 
+## Structure
+
+Run _server.py_ on the device which hosts the web server, and _imu.py_ on the device that has the IMU.
+
 ## Technologies
 
 -   Python 3.7
@@ -17,5 +21,16 @@ If you already have `pipenv` installed, run:
 
 ```
 pipenv install  # Install dependencies
-pipenv run python3 app.py  # Start the web server
+```
+
+On the device that runs the web server:
+
+```
+pipenv run python3 server.py
+```
+
+On the device with the IMU:
+
+```
+pipenv run python3 imu.py
 ```
