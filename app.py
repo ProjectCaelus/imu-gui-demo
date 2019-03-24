@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
-import random
+import random, math
 
 app = Flask("__name__", static_folder="assets")
 # Prevent CORS errors
@@ -12,7 +12,7 @@ def index():
 
 @app.route("/data")
 def data():
-    orientation = {"pitch": random.randint(0, 10), "roll": random.randint(0, 10), "yaw": random.randint(0, 10)}
+    orientation = {"pitch": random.random()*math.pi*2, "roll": random.random()*math.pi*2, "yaw": random.random()*math.pi*2}
     acceleration = {"x": random.randint(0, 10), "y": random.randint(0, 10), "z": random.randint(0, 10)}
     return jsonify({"a": acceleration, "o": orientation})
 

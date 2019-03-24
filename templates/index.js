@@ -42,8 +42,8 @@ mtlLoader.load("./callisto.mtl", function(materials) {
         scene.add(object);
         object.scale.set(0.1, 0.1, 0.1);
         object.rotation.set(-Math.PI / 2, 0, 0);
-        object.position.y -= 80;
-    });
+//        object.position.y -= 80;
+      });
 });
 
 var animate = function() {
@@ -56,16 +56,36 @@ var animate = function() {
 var updateData = function() {
     fetch("http://localhost:5000/data")
         .then(function(response) {
+//          console.log('hi');
             return response.json();
         })
         .then(function(data) {
             // Update the DOM
+//            console.log('hi');
             document.getElementById("data-a-x").innerHTML = data["a"]["x"];
             document.getElementById("data-a-y").innerHTML = data["a"]["y"];
             document.getElementById("data-a-z").innerHTML = data["a"]["z"];
             document.getElementById("data-o-pitch").innerHTML = data["o"]["pitch"];
             document.getElementById("data-o-roll").innerHTML = data["o"]["roll"];
             document.getElementById("data-o-yaw").innerHTML = data["o"]["yaw"];
+
+            cad_obj.position.y = 0;
+            cad_obj.rotation.set(data["o"]["pitch"] - Math.PI/2, data["o"]["yaw"], data["o"]["roll"]);
+            let temp_pitch = data["o"]["pitch"] - Math.PI/2;
+            let positionY = 0;
+            if(temp_pitch <= Math.PI/2)
+              positionY = temp_pitch*160/Math.PI;
+            else
+              positionY = -(temp_pitch-Math.PI)*160/Math.PI
+            let temp_yaw = data["o"]["yaw"];
+            let positionX = 0;
+            if(temp_yaw <= Math.PI/2)
+              positionX = temp_yaw*200/Math.PI;
+            else
+              positionX = -(temp_yaw-Math.PI)*200/Math.PI
+
+            cad_obj.position.y = positionY;
+            cad_obj.position.x = positionX
         })
         .catch(function() {
             console.log("Error occured with data request");
@@ -73,4 +93,4 @@ var updateData = function() {
 };
 
 animate();
-setInterval(updateData, 500);
+setInterval(updateData, 1000);
