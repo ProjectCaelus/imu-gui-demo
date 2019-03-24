@@ -29,14 +29,14 @@ scene.add(backLight);
 var cad_obj;
 
 var mtlLoader = new THREE.MTLLoader();
-mtlLoader.setTexturePath("../static/stl/");
-mtlLoader.setPath("../static/stl/");
+mtlLoader.setTexturePath("../assets/stl/");
+mtlLoader.setPath("../assets/stl/");
 mtlLoader.load("./callisto.mtl", function(materials) {
     materials.preload();
 
     var objLoader = new THREE.OBJLoader();
     objLoader.setMaterials(materials);
-    objLoader.setPath("../static/stl/");
+    objLoader.setPath("../assets/stl/");
     objLoader.load("./callisto.obj", function(object) {
         cad_obj = object;
         scene.add(object);
