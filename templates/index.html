@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>IMU Demo | Project Caelus</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+		<style>
+            {% include "index.css" %}
+		</style>
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+        <div id="root"></div>
+        <script type="text/javascript" src="{{ url_for('static', filename='three/three.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='three/MTLLoader.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='three/OBJLoader.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='three/OrbitControls.js') }}"></script>
+        {% block javascript %}
+        <script type="text/javascript">
+            // Evaluate the contents of the JS rather than simply importing it
+            {% include "index.js" %}
+        </script>
+        {% endblock %}
+        {% endblock %}
+    </body
+</html>

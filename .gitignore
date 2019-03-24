@@ -15,5 +15,6 @@ build/
 
 # IDE and text editors
 .idea/
-vscode/
+.vscode/
 
+.DS_Store

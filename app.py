@@ -1,9 +1,9 @@
 from flask import Flask, jsonify, render_template, request
-app = Flask("__name__")
+app = Flask("__name__", static_folder="assets")
 
 @app.route("/")
 def index():
-    return "Hello, Project Caelus"
+    return render_template("index.html")
 
 @app.route("/data")
 def data():
