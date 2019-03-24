@@ -93,4 +93,4 @@ var updateData = function() {
 };
 
 animate();
-setInterval(updateData, 1000);
+setInterval(updateData, 10);

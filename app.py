@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
-import random, math, socket
+import random, math, socket, json, time
 
 TCP_IP = '127.0.0.1' # Need to change to IP of groundstation
 TCP_PORT = 5005
@@ -23,9 +23,11 @@ def index():
 @app.route("/data")
 def data():
     sock_data = conn.recv(BUFFER_SIZE)
-
+    print(sock_data)
+    sock_data = json.loads(sock_data.decode("utf-8"))
     orientation = sock_data["o"]#{"pitch": random.random()*math.pi*2, "roll": random.random()*math.pi*2, "yaw": random.random()*math.pi*2}
     acceleration = sock_data["a"]#{"x": random.randint(0, 10), "y": random.randint(0, 10), "z": random.randint(0, 10)}
+    conn.send("Data Received".encode('utf-8'))
     return jsonify({"a": acceleration, "o": orientation})
 
 if __name__ == "__main__":
