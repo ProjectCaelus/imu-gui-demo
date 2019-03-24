@@ -49,8 +49,28 @@ mtlLoader.load("./callisto.mtl", function(materials) {
 var animate = function() {
     requestAnimationFrame(animate);
     controls.update();
-    renderer.setClearColor(0xbbbbbb, 1);
+    renderer.setClearColor(0xf3f7f0, 1);
     renderer.render(scene, camera);
 };
 
+var updateData = function() {
+    fetch("http://localhost:5000/data")
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            // Update the DOM
+            document.getElementById("data-a-x").innerHTML = data["a"]["x"];
+            document.getElementById("data-a-y").innerHTML = data["a"]["y"];
+            document.getElementById("data-a-z").innerHTML = data["a"]["z"];
+            document.getElementById("data-o-pitch").innerHTML = data["o"]["pitch"];
+            document.getElementById("data-o-roll").innerHTML = data["o"]["roll"];
+            document.getElementById("data-o-yaw").innerHTML = data["o"]["yaw"];
+        })
+        .catch(function() {
+            console.log("Error occured with data request");
+        });
+};
+
 animate();
+setInterval(updateData, 500);

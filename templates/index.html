@@ -13,7 +13,22 @@
     </head>
     <body>
         {% block body %}
-        <div id="root"></div>
+        <div id="root">
+            <div id="header">
+                <h3>Project Caelus</h3>
+                <p>IMU Demonstration</p>
+            </div>
+            <div id="data">
+                <h3>Acceleration</h3>
+                <p>X: <span id="data-a-x"></span></p>
+                <p>Y: <span id="data-a-y"></span></p>
+                <p>Z: <span id="data-a-z"></span></p>
+                <h3>Rotation</h3>
+                <p>Pitch: <span id="data-o-pitch"></span></p>
+                <p>Roll: <span id="data-o-roll"></span></p>
+                <p>Yaw: <span id="data-o-yaw"></span></p>
+            </div>
+        </div>
         <script type="text/javascript" src="{{ url_for('static', filename='three/three.min.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='three/MTLLoader.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='three/OBJLoader.js') }}"></script>

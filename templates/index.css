@@ -5,3 +5,19 @@ body {
     max-height: 100%;
     overflow: hidden;
 }
+
+#header {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+
+    text-align: left;
+}
+
+#data {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+
+    text-align: left;
+}
