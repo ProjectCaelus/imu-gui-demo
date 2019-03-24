@@ -55,4 +55,6 @@ def orientation():
 
 if __name__ == "__main__":
     startup()
-    threading.Thread(target=orientation, args=(), daemon=True).start().join()
+    thread = threading.Thread(target=orientation, args=(), daemon=True)
+    thread.start()
+    thread.join()
