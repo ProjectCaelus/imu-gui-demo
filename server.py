@@ -5,10 +5,11 @@ import math
 import socket
 import json
 import time
+import argparse
 
-TCP_IP = '127.0.0.1'  # Need to change to IP of groundstation
+TCP_IP = '127.0.0.1'
 TCP_PORT = 5005
-BUFFER_SIZE = 1024  # Can make this lower if we need speed
+BUFFER_SIZE = 512  # Can make this lower if we need speed
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind((TCP_IP, TCP_PORT))
@@ -40,4 +41,13 @@ def data():
 
 
 if __name__ == "__main__":
+    # Get groundstation IP
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--ip", required=False)
+    args, other = parser.parse_known_args()
+    if (args.ip is not None):
+        TCP_IP = args.ip
+    else:
+        TCP_IP = '127.0.0.1'
+
     app.run()

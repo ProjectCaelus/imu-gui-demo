@@ -7,12 +7,22 @@ import threading
 import random as r
 import math
 import json
+import argparse
 
 
 def startup():
     global sense, sock, BUFFER_SIZE
     # sense = SenseHat()
-    TCP_IP = '127.0.0.1'  # Need to change to IP of groundstation
+
+    # Get groundstation IP
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--ip", required=False)
+    args, other = parser.parse_known_args()
+    if (args.ip is not None):
+        TCP_IP = args.ip
+    else:
+        TCP_IP = '127.0.0.1'
+
     TCP_PORT = 5005
     BUFFER_SIZE = 512
     MESSAGE = "Hello, World!"
@@ -37,6 +47,7 @@ def orientation():
 
             for k, v in o.items():
                 o[k] = round(v, 2)
+                o[k] = math.degrees(o[k])  # Convert to degrees
             for k, v in a.items():
                 a[k] = round(v, 1)
 
