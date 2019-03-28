@@ -11,12 +11,6 @@ TCP_IP = '127.0.0.1'
 TCP_PORT = 5005
 BUFFER_SIZE = 512  # Can make this lower if we need speed
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind((TCP_IP, TCP_PORT))
-sock.listen(1)
-
-conn, addr = sock.accept()
-
 app = Flask("__name__", static_folder="assets")
 # Prevent CORS errors
 CORS(app)
@@ -49,5 +43,12 @@ if __name__ == "__main__":
         TCP_IP = args.ip
     else:
         TCP_IP = '127.0.0.1'
+    print("IP:", TCP_IP)
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind((TCP_IP, TCP_PORT))
+    sock.listen(1)
+
+    conn, addr = sock.accept()
 
     app.run()

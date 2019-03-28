@@ -41,13 +41,13 @@ def orientation():
             z = r.randint(0, 10)
 
             # o = sense.get_orientation()
-            o = {"pitch": r.random()*math.pi*2, "roll": r.random() *
-                 math.pi*2, "yaw": r.random()*math.pi*2}
+            o = {"pitch": r.random()*360, "roll": r.random() *
+                 360, "yaw": r.random()*360}
             a = {"x": x, "y": y, "z": z}
 
             for k, v in o.items():
                 o[k] = round(v, 2)
-                o[k] = math.degrees(o[k])  # Convert to degrees
+                o[k] = math.radians(o[k])  # Convert to degrees
             for k, v in a.items():
                 a[k] = round(v, 1)
 
