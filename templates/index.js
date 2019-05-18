@@ -56,12 +56,10 @@ var animate = function() {
 var updateData = function() {
     fetch("http://localhost:5000/data")
         .then(function(response) {
-//          console.log('hi');
             return response.json();
         })
         .then(function(data) {
             // Update the DOM
-//            console.log('hi');
             document.getElementById("data-a-x").innerHTML = data["a"]["x"];
             document.getElementById("data-a-y").innerHTML = data["a"]["y"];
             document.getElementById("data-a-z").innerHTML = data["a"]["z"];
